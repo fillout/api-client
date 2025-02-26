@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "esModuleInterop": true,
+    "target": "ES2017",
+    "strict": true,
+    "declaration": true
+  },
+  "lib": ["es2015"],
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
+}
