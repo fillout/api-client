@@ -199,13 +199,13 @@ export class Fillout {
   };
 
   /**
-   * Import submissions
+   * Create submissions
    * @param formId - The id found in the URL of a form, eg. `foAdHjd1Duus`
-   * @param submissions - The maximum number of submissions that can be imported per request is 10.
+   * @param submissions - The maximum number of submissions that can be created in a single request is 10.
    *
    * See also: https://www.fillout.com/help/fillout-rest-api#951dc79e6b8b476aa808ea670252609d
    */
-  importSubmissions = async (
+  createSubmissions = async (
     formId: string,
     submissions: Record<string, any>[]
   ) => {
@@ -221,7 +221,7 @@ export class Fillout {
       }
     );
 
-    if (!res.ok) throw await filloutError(`import Fillout submissions`, res);
+    if (!res.ok) throw await filloutError(`create Fillout submissions`, res);
 
     const data: { id: number } = await res.json();
     return data;
