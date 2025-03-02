@@ -63,3 +63,5 @@ const submissions = await fillout.getSubmissions("foAdHjd1Duus", {
 
 To find out what you can do, take a look at our [API documentation](https://www.fillout.com/help/fillout-rest-api).
 This package also has TypeScript and JSDoc comments, so you should get some helpful hints in your editor :)
+
+If you're looking to embed Fillout in a React project, try [@fillout/react](https://npmjs.org/package/@fillout/react)!
