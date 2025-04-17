@@ -1,13 +1,19 @@
 import { FilloutForm, FilloutSubmission } from "./types.js";
 
+const TOKEN_PREFIXES = ["sk_prod_", "fillout_token_"];
+
+function isValidToken(token: string) {
+  return TOKEN_PREFIXES.some((prefix) => token.startsWith(prefix));
+}
+
 export class Fillout {
   private token: string;
   private baseUrl: string;
 
   constructor(token: string, options?: { region?: "us" | "eu" | "ca" }) {
-    if (typeof token !== "string" || !token.startsWith("sk_prod_")) {
+    if (typeof token !== "string" || !isValidToken(token)) {
       throw new Error(
-        "Invalid Fillout API key. Visit https://build.fillout.com/home/settings/developer to create one."
+        "Invalid Fillout API key. Visit https://build.fillout.com/home/settings/developer to create one.",
       );
     }
 
@@ -46,7 +52,7 @@ export class Fillout {
         headers: {
           Authorization: `Bearer ${this.token}`,
         },
-      }
+      },
     );
     if (!res.ok)
       throw await filloutError(`fetch Fillout form '${formId}'`, res);
@@ -80,7 +86,7 @@ export class Fillout {
       sort?: "asc" | "desc";
       /** Filter for submissions containing a string of text */
       search?: string;
-    }
+    },
   ) => {
     const res = await fetch(
       `${this.baseUrl}/v1/api/forms/${encodeURIComponent(formId)}/submissions?${toURLSearchParams(options || {})}`,
@@ -88,12 +94,12 @@ export class Fillout {
         headers: {
           Authorization: `Bearer ${this.token}`,
         },
-      }
+      },
     );
     if (!res.ok) {
       throw await filloutError(
         `fetch submissions for Fillout form '${formId}'`,
-        res
+        res,
       );
     }
 
@@ -116,7 +122,7 @@ export class Fillout {
     options?: {
       /** Pass `true` to include a link to edit the submission as `editLink` */
       includeEditLink?: boolean;
-    }
+    },
   ) => {
     const res = await fetch(
       `${this.baseUrl}/v1/api/forms/${encodeURIComponent(formId)}/submissions/${encodeURIComponent(submissionId)}?${toURLSearchParams(options || {})}`,
@@ -124,12 +130,12 @@ export class Fillout {
         headers: {
           Authorization: `Bearer ${this.token}`,
         },
-      }
+      },
     );
     if (!res.ok) {
       throw await filloutError(
         `fetch Fillout submission '${submissionId}'`,
-        res
+        res,
       );
     }
 
@@ -150,12 +156,12 @@ export class Fillout {
         headers: {
           Authorization: `Bearer ${this.token}`,
         },
-      }
+      },
     );
     if (!res.ok) {
       throw await filloutError(
         `delete Fillout submission '${submissionId}'`,
-        res
+        res,
       );
     }
   };
@@ -207,7 +213,7 @@ export class Fillout {
    */
   createSubmissions = async (
     formId: string,
-    submissions: Record<string, any>[]
+    submissions: Record<string, any>[],
   ) => {
     const res = await fetch(
       `${this.baseUrl}/v1/api/forms/${encodeURIComponent(formId)}/submissions`,
@@ -218,7 +224,7 @@ export class Fillout {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ submissions }),
-      }
+      },
     );
 
     if (!res.ok) throw await filloutError(`create Fillout submissions`, res);
