@@ -12,6 +12,8 @@ export type FilloutForm = {
   approvals?: FilloutApproval[];
 };
 
+export type FilloutFormTag = "form" | "quiz" | "survey" | "scheduling";
+
 type FilloutQuestion = {
   id: string;
   name: string;
