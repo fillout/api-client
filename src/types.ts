@@ -159,5 +159,7 @@ type FilloutApprovalModel = {
 type FilloutApprovalDecision = {
   userId: number;
   selectedStateId: string;
+  name: string;
+  color: string;
   createdAt: string;
 };
