@@ -1,4 +1,11 @@
-import { FilloutForm, FilloutFormTag, FilloutSubmission } from "./types.js";
+import {
+  FilloutForm,
+  FilloutFormMetadata,
+  FilloutFormTag,
+  FilloutSubmission,
+} from "./types.js";
+
+export { FilloutForm, FilloutFormMetadata, FilloutFormTag, FilloutSubmission };
 
 const TOKEN_PREFIXES = ["sk_prod_", "fillout_token_"];
 
@@ -37,11 +44,7 @@ export class Fillout {
     });
     if (!res.ok) throw await filloutError("fetch Fillout forms", res);
 
-    const data: {
-      formId: string;
-      name: string;
-      tags: FilloutFormTag[];
-    }[] = await res.json();
+    const data: FilloutForm[] = await res.json();
 
     return data;
   };
@@ -62,7 +65,7 @@ export class Fillout {
     if (!res.ok)
       throw await filloutError(`fetch Fillout form '${formId}'`, res);
 
-    const data: FilloutForm = await res.json();
+    const data: FilloutFormMetadata = await res.json();
     return data;
   };
 
