@@ -1,6 +1,12 @@
 import { FILLOUT_QUESTION_TYPES } from "./constants.js";
 
 export type FilloutForm = {
+  formId: string;
+  name: string;
+  tags: FilloutFormTag[];
+};
+
+export type FilloutFormMetadata = {
   id: string;
   name: string;
   questions: FilloutQuestion[];
