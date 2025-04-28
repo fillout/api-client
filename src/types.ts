@@ -9,6 +9,7 @@ export type FilloutForm = {
 export type FilloutFormMetadata = {
   id: string;
   name: string;
+  tags: FilloutFormTag[];
   questions: FilloutQuestion[];
   calculations: FilloutCalculation[];
   urlParameters: { id: string; name: string }[];
